@@ -1,0 +1,80 @@
+
+// QM Pattern Scanner MT5
+// Developer: Forex Robot Easy Team
+// Website: forexroboteasy.com
+
+// Import necessary libraries
+#include <Trade\Trade.mqh>
+
+// Define the QM Pattern Scanner class
+class QMPatternScannerMT5 {
+private:
+    CTrade m_trade; // Trade object for executing trades
+    string[] m_symbols; // Array to store all symbols
+    ENUM_TIMEFRAMES[] m_timeframes; // Array to store all time frames
+
+public:
+    // Constructor
+    QMPatternScannerMT5() {
+        // Initialize the symbols array
+        m_symbols = SymbolsTotal();
+        
+        // Initialize the timeframes array
+        m_timeframes = {
+            PERIOD_M1,
+            PERIOD_M5,
+            PERIOD_M15,
+            PERIOD_M30,
+            PERIOD_H1,
+            PERIOD_H4,
+            PERIOD_D1,
+            PERIOD_W1,
+            PERIOD_MN1
+        };
+    }
+    
+    // Function to scan all symbols and time frames
+    void scanMarket() {
+        // Loop through all symbols
+        for (int i=0; i<ArraySize(m_symbols); i++) {
+            string symbol = m_symbols[i];
+            
+            // Loop through all time frames
+            for (int j=0; j<ArraySize(m_timeframes); j++) {
+                ENUM_TIMEFRAMES timeframe = m_timeframes[j];
+                
+                // Perform market analysis for the symbol and timeframe
+                performAnalysis(symbol, timeframe);
+            }
+        }
+    }
+    
+    // Function to perform market analysis
+    void performAnalysis(string symbol, ENUM_TIMEFRAMES timeframe) {
+        // TODO: Add code to perform market analysis for the given symbol and timeframe
+        
+        // Example: Print the symbol and timeframe for demonstration purposes
+        Print('Performing analysis for symbol:', symbol);
+        Print('Timeframe:', EnumToString(timeframe));
+    }
+    
+    // Function to execute trades
+    void executeTrade() {
+        // TODO: Add necessary code to execute trades based on trading strategies
+        
+        // Example: Execute a buy trade on EURUSD
+        m_trade.Buy(0.1, Symbol(), 1, 0, 0);
+    }
+};
+
+// Entry point of the program
+void OnStart() {
+    // Create an instance of the QM Pattern Scanner
+    QMPatternScannerMT5 scanner;
+    
+    // Scan the market
+    scanner.scanMarket();
+    
+    // Execute trades based on trading strategies
+    scanner.executeTrade();
+}
